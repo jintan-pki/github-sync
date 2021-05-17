@@ -29,7 +29,7 @@ echo "BRANCHES=$BRANCH_MAPPING"
 git config --unset-all http."https://github.com/".extraheader || :
 
 echo "DISABLE LFS"
-git lfs install
+GIT_LFS_SKIP_SMUDGE=1
 git config --global filter.lfs.smudge "git-lfs smudge --skip -- %f"
 git config --global filter.lfs.process "git-lfs filter-process --skip"
 
@@ -44,7 +44,7 @@ git fetch tmp_upstream --quiet
 git remote --verbose
 
 echo "Pushing changings from tmp_upstream to origin"
-git push origin "refs/remotes/tmp_upstream/${BRANCH_MAPPING%%:*}:refs/heads/${BRANCH_MAPPING#*:}" --force
+git push origin "refs/remotes/tmp_upstream/${BRANCH_MAPPING%%:*}:refs/heads/${BRANCH_MAPPING#*:}" --force --no-verify
 
 if [[ "$SYNC_TAGS" = true ]]; then
   echo "Force syncing all tags"
