@@ -27,6 +27,8 @@ echo "UPSTREAM_REPO=$UPSTREAM_REPO"
 echo "BRANCHES=$BRANCH_MAPPING"
 
 git config --unset-all http."https://github.com/".extraheader || :
+
+echo "DISABLE LFS"
 git lfs install
 git config --global filter.lfs.smudge "git-lfs smudge --skip -- %f"
 git config --global filter.lfs.process "git-lfs filter-process --skip"
