@@ -14,14 +14,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: Build & push Docker image
         with:
+          image: ${{ github.repository }}
+          registry: ghcr.io
+          dockerfile: Dockerfile
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
-          registry: ghcr.io
-          repository: ${{ github.repository }}
-          tag_with_ref: true
-          add_git_labels: true
-          always_pull: true
-          push: ${{ startsWith(github.ref, 'refs/tags/') }}
+      
+      #- name: Build and push Docker image
+      #  uses: docker/build-push-action@v3
+      #  with:
+      #    username: ${{ github.actor }}
+      #    password: ${{ secrets.CR_PAT }}
+      #    registry: ghcr.io
+      #    repository: ${{ github.repository }}
+      #    tag_with_ref: true
+      #    add_git_labels: true
+      #    always_pull: true
+      #    push: ${{ startsWith(github.ref, 'refs/tags/') }}
