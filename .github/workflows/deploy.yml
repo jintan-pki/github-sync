@@ -39,7 +39,7 @@ jobs:
           push: true
           file: Dockerfile
           tags: |
-            ghcr.io/${{ github.actor }}/id:${{ steps.meta.outputs.tag }}
+            ghcr.io/${{ github.actor }}/github-sync:${{ steps.meta.outputs.tag }}
             
       #- name: Build and push Docker image
       #  uses: docker/build-push-action@v3
