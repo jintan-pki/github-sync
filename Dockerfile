@@ -13,12 +13,14 @@ LABEL \
 RUN apk add --no-cache git openssh-client && \
   echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
+ARG GITLFS_VERSION="3.2.0"
+
 RUN apk --no-cache add openssl curl \
-    && curl -sLO https://github.com/github/git-lfs/releases/download/v2.0.1/git-lfs-linux-amd64-2.0.1.tar.gz \
-    && tar zxvf git-lfs-linux-amd64-2.0.1.tar.gz \
-    && mv git-lfs-2.0.1/git-lfs /usr/bin/ \
-    && rm -rf git-lfs-2.0.1 \
-    && rm -rf git-lfs-linux-amd64-2.0.1.tar.gz \
+    && curl -sLO https://github.com/github/git-lfs/releases/download/v${MKCERT_VERSION}/git-lfs-linux-amd64-${MKCERT_VERSION}.tar.gz \
+    && tar zxvf git-lfs-linux-amd64-${MKCERT_VERSION}.tar.gz \
+    && mv git-lfs-${MKCERT_VERSION}/git-lfs /usr/bin/ \
+    && rm -rf git-lfs-${MKCERT_VERSION} \
+    && rm -rf git-lfs-linux-amd64-${MKCERT_VERSION}.tar.gz \
     && git lfs install --skip-smudge
 
 ADD *.sh /
